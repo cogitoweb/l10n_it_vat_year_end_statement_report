@@ -22,6 +22,8 @@
 
 import time
 from report import report_sxw
+from osv import osv
+from tools.translate import _
 
 
 class Parser(report_sxw.rml_parse):
@@ -34,7 +36,7 @@ class Parser(report_sxw.rml_parse):
         tax_pool = self.pool['account.tax']
         if tax_code.sum:
             if res.get(tax_code.name, False):
-                raise orm.except_orm(
+                raise osv.except_osv(
                     _('Error'),
                     _('Too many occurences of tax code %s') % tax_code.name)
             # search for taxes linked to that code
@@ -49,7 +51,7 @@ class Parser(report_sxw.rml_parse):
                     tax.base_code_id or tax.parent_id
                     and tax.parent_id.base_code_id or False)
                 if not base_code:
-                    raise orm.except_orm(
+                    raise osv.except_osv(
                         _('Error'),
                         _('No base code found for tax code %s')
                         % tax_code.name)
@@ -61,7 +63,7 @@ class Parser(report_sxw.rml_parse):
                         tax.base_code_id or tax.parent_id
                         and tax.parent_id.base_code_id or False)
                     if test_base_code.id != base_code.id:
-                        raise orm.except_orm(
+                        raise osv.except_osv(
                             _('Error'),
                             _('Not every tax linked to tax code %s is linked '
                               'the same base code') % tax_code.name)
