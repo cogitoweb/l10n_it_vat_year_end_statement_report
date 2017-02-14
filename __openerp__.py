@@ -25,7 +25,7 @@
     'category': 'Report',
     'description': """Stampa Webkit di riepilogo annuale IVA """,
     'author': 'Apulia Software s.r.l. <info@apuliasoftware.it>, Cogito s.r.l. <info@cogitoweb.it>',
-    'website': 'www.apuliasoftware.it www.cogitoweb.it',
+    'website': 'www.apuliasoftware.it',
     'license': 'AGPL-3',
     "depends": [
         'account',
