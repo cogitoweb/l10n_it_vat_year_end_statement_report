@@ -32,8 +32,8 @@
                 % for tax,vals in taxes.items():
                 <tr>
                     <td>${ tax }</td>
-                    <td class="align-right">${ '%0.2f' % (vals['base']*multiplier) }</td>
-                    <td class="align-right">${ '%0.2f' % (vals['vat']*multiplier) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['base']*multiplier) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['vat']*multiplier) }</td>
                 </tr>
                   % if total_base.append(vals['base']*multiplier)
     		  % endif
@@ -44,8 +44,8 @@
                 % endfor
                 <tr>
                     <td></td>
-                    <td class="total align-right">${ '%0.2f' % total_base|sum }</td>
-                    <td class="total align-right">${ '%0.2f' % total_vat|sum }</td>
+                    <td class="total align-right">${ '{:,.2f}'.format(total_base|sum) }</td>
+                    <td class="total align-right">${ '{:,.2f}'.format(total_vat|sum) }</td>
                 </tr>
             </tbody>
         </table>
@@ -53,19 +53,19 @@
     <table class="table table-bordered table-condensed" style="margin-left:50%;width:50%;">
         <tr>
             <td style="width:50%;">Iva Debito</td>
-            <td style="width:50%;"  class="align-right">${ '%0.2f' % total['debit']|sum }</td>
+            <td style="width:50%;"  class="align-right">${ '{:,.2f}'.format(total['debit']|sum) }</td>
         </tr>
         <tr>
             <td>Iva Credito</td>
-            <td class="align-right">${ '%0.2f' % total['credit']|sum }</td>
+            <td class="align-right">${ '{:,.2f}'.format(total['credit']|sum) }</td>
         </tr>
         <tr>
             <td>Compensazioni</td>
-            <td class="align-right">${ '%0.2f' % (total['extra']|sum*-1) }</td>
+            <td class="align-right">${ '{:,.2f}'.format(total['extra']|sum*-1) }</td>
         </tr>
         <tr>
             <td><strong>Da Versare</strong></td>
-            <td class="align-right"><strong>${ '%0.2f' % (total['debit']|sum - total['credit']|sum + total['extra']|sum*-1) }</strong></td>
+            <td class="align-right"><strong>${ '{:,.2f}'.format(total['debit']|sum - total['credit']|sum + total['extra']|sum*-1) }</strong></td>
         </tr>
     </table>
 </body>
