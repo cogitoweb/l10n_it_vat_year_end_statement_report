@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 16:27+0000\n"
-"PO-Revision-Date: 2017-02-14 16:27+0000\n"
+"POT-Creation-Date: 2017-02-15 09:22+0000\n"
+"PO-Revision-Date: 2017-02-15 09:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,9 +36,9 @@ msgid "Display Name"
 msgstr "Nome"
 
 #. module: l10n_it_vat_year_end_statement_report
-#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:42
-#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:57
-#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:69
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:46
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:61
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:73
 #, python-format
 msgid "Error"
 msgstr "Errore"
@@ -69,16 +69,21 @@ msgid "Last Updated on"
 msgstr "Ultimo aggiornamento del"
 
 #. module: l10n_it_vat_year_end_statement_report
-#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:58
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:62
 #, python-format
 msgid "No base code found for tax code %s"
 msgstr "Nessun codice base per il codice tributo %s"
 
 #. module: l10n_it_vat_year_end_statement_report
-#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:70
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:74
 #, python-format
 msgid "Not every tax linked to tax code %s is linked the same base code"
 msgstr "Non ogni codice tributo collegato al codice tributo %s è collegato allo stesso codice tributo base"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,compensation_ids:0
+msgid "Other receivables / payables for VAT or tax codes"
+msgstr "Altri crediti/debiti per IVA o compensazioni di imposta"
 
 #. module: l10n_it_vat_year_end_statement_report
 #: view:wizard.year.statement:l10n_it_vat_year_end_statement_report.wizard_year_statement
@@ -97,7 +102,7 @@ msgid "Print Vat Year End Statement"
 msgstr "Stampa liquidazione IVA Annuale"
 
 #. module: l10n_it_vat_year_end_statement_report
-#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:43
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:47
 #, python-format
 msgid "Too many occurences of tax code %s"
 msgstr "Troppe occorrenze del codice tributo %s"
