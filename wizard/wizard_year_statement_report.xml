@@ -9,6 +9,15 @@
                 <form string="Print VAT Year End Statment" version="7.0">
                     <group>
                         <field name="fiscalyear_id"/>
+                        
+                        <field name="compensation_ids">
+                            <tree>
+                                <field name="code"></field>
+                                <field name="name"></field>
+                                <field name="vat_statement_type"></field>
+                                <field name="parent_id"></field>
+                            </tree>
+                        </field>
                     </group>
                     <footer>
                         <button string="Print" name="print_report" type="object" class="oe_highlight" colspan="2"/>

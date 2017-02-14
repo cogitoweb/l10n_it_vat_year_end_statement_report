@@ -1,0 +1,109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_it_vat_year_end_statement_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-14 16:27+0000\n"
+"PO-Revision-Date: 2017-02-14 16:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: view:wizard.year.statement:l10n_it_vat_year_end_statement_report.wizard_year_statement
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,create_uid:0
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,create_date:0
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,display_name:0
+msgid "Display Name"
+msgstr "Nome"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:42
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:57
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:69
+#, python-format
+msgid "Error"
+msgstr "Errore"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,fiscalyear_id:0
+msgid "Fiscalyear"
+msgstr "Anno Fiscale"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,__last_update:0
+msgid "Last Modified on"
+msgstr "Ultima modifica del"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,write_uid:0
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: field:wizard.year.statement,write_date:0
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento del"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:58
+#, python-format
+msgid "No base code found for tax code %s"
+msgstr "Nessun codice base per il codice tributo %s"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:70
+#, python-format
+msgid "Not every tax linked to tax code %s is linked the same base code"
+msgstr "Non ogni codice tributo collegato al codice tributo %s è collegato allo stesso codice tributo base"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: view:wizard.year.statement:l10n_it_vat_year_end_statement_report.wizard_year_statement
+msgid "Print"
+msgstr "Stampa"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: view:wizard.year.statement:l10n_it_vat_year_end_statement_report.wizard_year_statement
+msgid "Print VAT Year End Statment"
+msgstr "Stampa liquidazione IVA Annuale"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: model:ir.actions.act_window,name:l10n_it_vat_year_end_statement_report.act_wizard_year_statement
+#: model:ir.ui.menu,name:l10n_it_vat_year_end_statement_report.menu_year_vat_statement
+msgid "Print Vat Year End Statement"
+msgstr "Stampa liquidazione IVA Annuale"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: code:addons/l10n_it_vat_year_end_statement_report/report/year_vat_statement.py:43
+#, python-format
+msgid "Too many occurences of tax code %s"
+msgstr "Troppe occorrenze del codice tributo %s"
+
+#. module: l10n_it_vat_year_end_statement_report
+#: model:ir.actions.report.xml,name:l10n_it_vat_year_end_statement_report.print_year_vat_period_end_statement
+msgid "Year VAT Statement Summary"
+msgstr "Prospetto liquidazione IVA Annuale"
+

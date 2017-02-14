@@ -25,7 +25,10 @@ from openerp.report import report_sxw
 from openerp.addons.report_webkit import webkit_report
 from openerp.osv import osv
 from openerp.tools.translate import _
+#Import logger
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class Parser(report_sxw.rml_parse):
 #class Parser(webkit_report):
@@ -36,6 +39,7 @@ class Parser(report_sxw.rml_parse):
         if context is None:
             context = {}
         tax_pool = self.pool['account.tax']
+        
         if tax_code.sum:
             if res.get(tax_code.name, False):
                 raise osv.except_osv(
@@ -81,15 +85,38 @@ class Parser(report_sxw.rml_parse):
     def _get_tax_codes_amounts(self, type='credit',
                                tax_code_ids=None, context={}):
         tax_code_pool = self.pool['account.tax.code']
-        if tax_code_ids is None:
-            tax_code_ids = tax_code_pool.search(self.cr, self.uid, [
-                ('vat_statement_account_id', '!=', False),
-                ('vat_statement_type', '=', type),
-                ], context=context)
-        res = {}
-        code_pool = self.pool['account.tax.code']
+        
         context['fiscalyear_id'] = self.localcontext['data']['fiscalyear_id']
         context['year'] = self.localcontext['data']['year']
+        context['compensation_ids'] = self.localcontext['data']['compensation_ids']
+        
+        tax_code_ids = tax_code_ids or []
+        if not len(tax_code_ids):
+            
+            # standard groups for credit and debit
+            if type in ('credit', 'debit'):
+                
+                params = [
+                    ('vat_statement_account_id', '!=', False),
+                    ('vat_statement_type', '=', type),
+                    ]
+                
+                if context['compensation_ids']:
+                    params.append(('id', 'not in', context['compensation_ids']));
+                
+                tax_code_ids = tax_code_pool.search(self.cr, self.uid, params, context=context)
+            # extra groups
+            elif type in ('extra') and context['compensation_ids']:
+                
+                #_logger.info('EXTRA %s', "-".join(context['compensation_ids']))
+                
+                tax_code_ids = tax_code_pool.search(self.cr, self.uid, [
+                    ('id', 'in', context['compensation_ids'])
+                    ], context=context)
+                
+        res = {}
+        code_pool = self.pool['account.tax.code']
+        
         for tax_code in code_pool.browse(
                 self.cr, self.uid, tax_code_ids, context=context):
             res = self._build_codes_dict(tax_code, res=res, context=context)

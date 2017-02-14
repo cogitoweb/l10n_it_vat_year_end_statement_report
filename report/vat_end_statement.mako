@@ -2,15 +2,20 @@
 <head>
     <style type="text/css">
         ${css}
+        
+        .align-right {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <h2>Liquidazione IVA Annuale - ${ year() }</h2>
-    % set total = {'credit': [0.0], 'debit': [0.0]}
+    <br/>
+    <h2>Periodo IVA ${ year() }</h2>
+    % set total = {'credit': [0.0], 'debit': [0.0], 'extra': [0.0]}
     % set total_vat = [0.0]
     % set total_base = [0.0]
-    % for type in ('credit', 'debit'):
-        <h3 class="type">${ type=='credit' and 'Acquisti' or 'Vendite' }</h3>
+    % for type in ('credit', 'debit', 'extra'):
+        <h3 class="type">${ type=='credit' and 'Acquisti' or type=='extra' and 'Altri crediti / debiti per IVA o compensazioni di imposta' or 'Vendite' }</h3>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -20,14 +25,14 @@
                 </tr>
             </thead>
             <tbody> 
-		% set total_base = [0.0]
+		        % set total_base = [0.0]
                 % set total_vat = [0.0]
                 % set taxes = tax_codes_amounts(type)
                 % for tax,vals in taxes.items():
                 <tr>
                     <td>${ tax }</td>
-                    <td>${ vals['base'] }</td>
-                    <td>${ vals['vat'] }</td>
+                    <td class="align-right">${ vals['base'] }</td>
+                    <td class="align-right">${ vals['vat'] }</td>
                 </tr>
                   % if total_base.append(vals['base'])
     		  % endif
@@ -38,8 +43,8 @@
                 % endfor
                 <tr>
                     <td></td>
-                    <td class="total">${ total_base|sum }</td>
-                    <td class="total">${ total_vat|sum }</td>
+                    <td class="total align-right">${ total_base|sum }</td>
+                    <td class="total align-right">${ total_vat|sum }</td>
                 </tr>
             </tbody>
         </table>
@@ -47,15 +52,19 @@
     <table class="table table-bordered table-condensed" style="margin-left:50%;width:50%;">
         <tr>
             <td style="width:50%;">Iva Debito</td>
-            <td style="width:50%;">${ total['debit']|sum }</td>
+            <td style="width:50%;"  class="align-right">${ total['debit']|sum }</td>
         </tr>
         <tr>
             <td>Iva Credito</td>
-            <td>${ total['credit']|sum }</td>
+            <td class="align-right">${ total['credit']|sum }</td>
+        </tr>
+        <tr>
+            <td>Compensazioni</td>
+            <td class="align-right">${ total['extra']|sum }</td>
         </tr>
         <tr>
             <td>Da Versare</td>
-            <td>${ total['debit']|sum + total['credit']|sum }</td>
+            <td class="align-right">${ total['debit']|sum + total['credit']|sum }</td>
         </tr>
     </table>
 </body>

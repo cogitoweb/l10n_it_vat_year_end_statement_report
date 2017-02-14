@@ -26,20 +26,34 @@ from openerp.osv import orm, fields
 class wizard_year_statement(orm.TransientModel):
 
     _name = 'wizard.year.statement'
+    
+    def _get_compensation_account(self, cr, uid, ids, field_name, arg, context):
+        """Will return a list of ids according to the match
+        """
+        result = {}
+
+        return result
 
     _columns = {
-        'fiscalyear_id': fields.many2one('account.fiscalyear', 'Fiscalyear',
-                                         required=True)
+        'fiscalyear_id': fields.many2one('account.fiscalyear', 'Fiscalyear', required=True),
+        
+        'compensation_ids': fields.many2many('account.tax.code', string='Other receivables / payables for VAT or tax codes')
         }
 
     def print_report(self, cr, uid, ids, context={}):
         wizard = self.browse(cr, uid, ids, context)[0]
+        
+        compensation_ids = []
+        for i in wizard.compensation_ids:
+            compensation_ids.append(i.id)
+        
         res = {
             'type': 'ir.actions.report.xml',
             'datas': {'ids': ids,
                       'model': 'account.move',
                       'fiscalyear_id': wizard.fiscalyear_id.id,
                       'year': wizard.fiscalyear_id.name,
+                      'compensation_ids': compensation_ids
                       },
             'report_name': 'vat.year.end.statement',
         }
