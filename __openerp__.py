@@ -21,7 +21,7 @@
 
 {
     'name': "Vat Year End Statement Webkit Report",
-    'version': '0.1',
+    'version': '0.2',
     'category': 'Report',
     'description': """Stampa Webkit di riepilogo annuale IVA """,
     'author': 'Apulia Software s.r.l. <info@apuliasoftware.it>, Cogito s.r.l. <info@cogitoweb.it>',
