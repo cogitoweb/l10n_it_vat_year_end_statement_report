@@ -28,23 +28,24 @@
 		        % set total_base = [0.0]
                 % set total_vat = [0.0]
                 % set taxes = tax_codes_amounts(type)
+                % set multiplier = type=='credit' and -1 or 1
                 % for tax,vals in taxes.items():
                 <tr>
                     <td>${ tax }</td>
-                    <td class="align-right">${ vals['base'] }</td>
-                    <td class="align-right">${ vals['vat'] }</td>
+                    <td class="align-right">${ '%0.2f' % (vals['base']*multiplier) }</td>
+                    <td class="align-right">${ '%0.2f' % (vals['vat']*multiplier) }</td>
                 </tr>
-                  % if total_base.append(vals['base'])
+                  % if total_base.append(vals['base']*multiplier)
     		  % endif
-                  % if total_vat.append(vals['vat'])
+                  % if total_vat.append(vals['vat']*multiplier)
     		  % endif
-                  % if total[type].append(vals['vat'])
+                  % if total[type].append(vals['vat']*multiplier)
                   % endif
                 % endfor
                 <tr>
                     <td></td>
-                    <td class="total align-right">${ total_base|sum }</td>
-                    <td class="total align-right">${ total_vat|sum }</td>
+                    <td class="total align-right">${ '%0.2f' % total_base|sum }</td>
+                    <td class="total align-right">${ '%0.2f' % total_vat|sum }</td>
                 </tr>
             </tbody>
         </table>
@@ -52,19 +53,19 @@
     <table class="table table-bordered table-condensed" style="margin-left:50%;width:50%;">
         <tr>
             <td style="width:50%;">Iva Debito</td>
-            <td style="width:50%;"  class="align-right">${ total['debit']|sum }</td>
+            <td style="width:50%;"  class="align-right">${ '%0.2f' % total['debit']|sum }</td>
         </tr>
         <tr>
             <td>Iva Credito</td>
-            <td class="align-right">${ total['credit']|sum }</td>
+            <td class="align-right">${ '%0.2f' % total['credit']|sum }</td>
         </tr>
         <tr>
             <td>Compensazioni</td>
-            <td class="align-right">${ total['extra']|sum }</td>
+            <td class="align-right">${ '%0.2f' % (total['extra']|sum*-1) }</td>
         </tr>
         <tr>
-            <td>Da Versare</td>
-            <td class="align-right">${ total['debit']|sum + total['credit']|sum }</td>
+            <td><strong>Da Versare</strong></td>
+            <td class="align-right"><strong>${ '%0.2f' % (total['debit']|sum - total['credit']|sum + total['extra']|sum*-1) }</strong></td>
         </tr>
     </table>
 </body>

@@ -77,7 +77,7 @@
                                 <tr>
                                     <td>
                                         IVA: ${company.partner_id.vat or '' |e} <br />
-                                        Codice fiscale: ${company.partner_id.vat or '' |e}
+                                        Codice fiscale: ${company.partner_id.vat.split(' ')[1] or '' |e}
                                     </td>
                                      <td></td>
                                 </tr>

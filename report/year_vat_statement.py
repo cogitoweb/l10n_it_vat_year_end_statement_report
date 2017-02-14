@@ -101,8 +101,10 @@ class Parser(report_sxw.rml_parse):
                     ('vat_statement_type', '=', type),
                     ]
                 
-                if context['compensation_ids']:
-                    params.append(('id', 'not in', context['compensation_ids']));
+                # add compensation even in debit and credit
+                #
+                ##if context['compensation_ids']:
+                ##    params.append(('id', 'not in', context['compensation_ids']));
                 
                 tax_code_ids = tax_code_pool.search(self.cr, self.uid, params, context=context)
             # extra groups
