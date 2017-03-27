@@ -77,7 +77,9 @@ class Parser(report_sxw.rml_parse):
 
                 right_tax = tax.parent_id if tax.parent_id else tax
 
-                tax_d = base_code.sum*right_tax.amount
+                ## gestisco il caso reverse charge
+                ## con amount a 1
+                tax_d = base_code.sum*right_tax.amount if right_tax.amount < 1 else tax_code.sum
                 tax_und = tax_d - tax_code.sum
 
                 res[tax_code.name] = {
