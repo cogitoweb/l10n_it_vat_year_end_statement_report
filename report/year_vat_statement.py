@@ -75,12 +75,14 @@ class Parser(report_sxw.rml_parse):
             ## preserve only rows with base amount
             if(base_code.sum):
 
-                tax_d = base_code.sum*base_code.amount
+                right_tax = base_code if hasattr(base_code, 'amount') else tax
+
+                tax_d = base_code.sum*right_tax.amount
                 tax_und = tax_d - tax_code.sum
 
                 res[tax_code.name] = {
-                    'code': base_code.description,
-                    'name': base_code.name,
+                    'code': right_tax.description,
+                    'name': right_tax.name,
                     'vat': tax_code.sum,
                     'base': base_code.sum,
                     'd': tax_d,
