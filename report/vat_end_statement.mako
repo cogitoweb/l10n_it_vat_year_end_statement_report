@@ -33,7 +33,7 @@
                 <tr>
                     <td>${ tax }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['base']*multiplier) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['vat']*multiplier) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] and multiplier or 1)) }</td>
                 </tr>
                   % if total_base.append(vals['base']*multiplier)
     		  % endif
