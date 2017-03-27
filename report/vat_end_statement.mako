@@ -14,14 +14,19 @@
     % set total = {'credit': [0.0], 'debit': [0.0], 'extra': [0.0]}
     % set total_vat = [0.0]
     % set total_base = [0.0]
+    % set total_d = [0.0]
+    % set total_und = [0.0]
     % for type in ('credit', 'debit', 'extra'):
         <h3 class="type">${ type=='credit' and 'Acquisti' or type=='extra' and 'Altri crediti / debiti per IVA o compensazioni di imposta' or 'Vendite' }</h3>
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
-                    <th style="width:50%;">Descrizione</th>
-                    <th style="width:25%;">Imponibile</th>
-                    <th style="width:25%;">Imposta</th>
+                    <th style="width:10%;">Codice</th>
+                    <th style="width:41%;">Descrizione</th>
+                    <th style="width:13%;">Imponibile</th>
+                    <th style="width:13%;">Imposta</th>
+                    <th style="width:13%;">Deducibile</th>
+                    <th style="width:13%;">Indeducibile</th>
                 </tr>
             </thead>
             <tbody> 
@@ -31,21 +36,31 @@
                 % set multiplier = type=='credit' and -1 or 1
                 % for tax,vals in taxes.items():
                 <tr>
-                    <td>${ tax }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['base']*multiplier) }</td>
+                    <td>${ tax['code'] }</td>
+                    <td>${ tax['name'] }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['d']*(vals['d'] and multiplier or 1)) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['und']*(vals['und'] and multiplier or 1)) }</td>
                 </tr>
                   % if total_base.append(vals['base']*multiplier)
     		  % endif
                   % if total_vat.append(vals['vat']*multiplier)
+    		  % endif
+              % if total_d.append(vals['d']*multiplier)
+    		  % endif
+              % if total_und.append(vals['und']*multiplier)
     		  % endif
                   % if total[type].append(vals['vat']*multiplier)
                   % endif
                 % endfor
                 <tr>
                     <td></td>
+                    <td></td>
                     <td class="total align-right">${ '{:,.2f}'.format(total_base|sum) }</td>
+                    <td class="total align-right">${ '{:,.2f}'.format(total_d|sum) }</td>
                     <td class="total align-right">${ '{:,.2f}'.format(total_vat|sum) }</td>
+                    <td class="total align-right">${ '{:,.2f}'.format(total_und|sum) }</td>
                 </tr>
             </tbody>
         </table>

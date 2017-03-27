@@ -74,12 +74,21 @@ class Parser(report_sxw.rml_parse):
                           'the same base code') % tax_code.name)
             ## preserve only rows with base amount
             if(base_code.sum):
+
+                tax_d = base_code.sum*tax_code.amount
+                tax_und = tax_d - tax_code.sum
+
                 res[tax_code.name] = {
+                    'code': tax.description,
+                    'name': tax.name,
                     'vat': tax_code.sum,
                     'base': base_code.sum,
+                    'd': tax_d,
+                    'und': tax_und
                 }
 
         for child_code in tax_code.child_ids:
+
             res = self._build_codes_dict(
                 child_code, res=res, context=context)
 
