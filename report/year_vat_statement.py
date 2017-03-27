@@ -40,46 +40,47 @@ class Parser(report_sxw.rml_parse):
             context = {}
         tax_pool = self.pool['account.tax']
         
-        if tax_code.sum:
-            if res.get(tax_code.name, False):
+        if res.get(tax_code.name, False):
+            raise osv.except_osv(
+                _('Error'),
+                _('Too many occurences of tax code %s') % tax_code.name)
+        # search for taxes linked to that code
+        tax_ids = tax_pool.search(
+            self.cr, self.uid, [
+                ('tax_code_id', '=', tax_code.id)], context=context)
+        if tax_ids:
+            tax = tax_pool.browse(
+                self.cr, self.uid, tax_ids[0], context=context)
+            # search for the related base code
+            base_code = (
+                tax.base_code_id or tax.parent_id
+                and tax.parent_id.base_code_id or False)
+            if not base_code:
                 raise osv.except_osv(
                     _('Error'),
-                    _('Too many occurences of tax code %s') % tax_code.name)
-            # search for taxes linked to that code
-            tax_ids = tax_pool.search(
-                self.cr, self.uid, [
-                    ('tax_code_id', '=', tax_code.id)], context=context)
-            if tax_ids:
-                tax = tax_pool.browse(
-                    self.cr, self.uid, tax_ids[0], context=context)
-                # search for the related base code
-                base_code = (
+                    _('No base code found for tax code %s')
+                    % tax_code.name)
+            # check if every tax is linked to the same tax code and base
+            # code
+            for tax in tax_pool.browse(
+                    self.cr, self.uid, tax_ids, context=context):
+                test_base_code = (
                     tax.base_code_id or tax.parent_id
                     and tax.parent_id.base_code_id or False)
-                if not base_code:
+                if test_base_code.id != base_code.id:
                     raise osv.except_osv(
                         _('Error'),
-                        _('No base code found for tax code %s')
-                        % tax_code.name)
-                # check if every tax is linked to the same tax code and base
-                # code
-                for tax in tax_pool.browse(
-                        self.cr, self.uid, tax_ids, context=context):
-                    test_base_code = (
-                        tax.base_code_id or tax.parent_id
-                        and tax.parent_id.base_code_id or False)
-                    if test_base_code.id != base_code.id:
-                        raise osv.except_osv(
-                            _('Error'),
-                            _('Not every tax linked to tax code %s is linked '
-                              'the same base code') % tax_code.name)
-                res[tax_code.name] = {
-                    'vat': tax_code.sum,
-                    'base': base_code.sum,
-                }
-            for child_code in tax_code.child_ids:
-                res = self._build_codes_dict(
-                    child_code, res=res, context=context)
+                        _('Not every tax linked to tax code %s is linked '
+                          'the same base code') % tax_code.name)
+            res[tax_code.name] = {
+                'vat': tax_code.sum,
+                'base': base_code.sum,
+            }
+
+        for child_code in tax_code.child_ids:
+            res = self._build_codes_dict(
+                child_code, res=res, context=context)
+
         return res
 
     def _get_tax_codes_amounts(self, type='credit',
