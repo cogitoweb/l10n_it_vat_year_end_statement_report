@@ -72,10 +72,12 @@ class Parser(report_sxw.rml_parse):
                         _('Error'),
                         _('Not every tax linked to tax code %s is linked '
                           'the same base code') % tax_code.name)
-            res[tax_code.name] = {
-                'vat': tax_code.sum,
-                'base': base_code.sum,
-            }
+            ## preserve only rows with base amount
+            if(base_code.sum):
+                res[tax_code.name] = {
+                    'vat': tax_code.sum,
+                    'base': base_code.sum,
+                }
 
         for child_code in tax_code.child_ids:
             res = self._build_codes_dict(
