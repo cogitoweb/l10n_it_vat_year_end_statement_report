@@ -36,8 +36,8 @@
                 % set multiplier = type=='credit' and -1 or 1
                 % for tax,vals in taxes.items():
                 <tr>
-                    <td>${ tax['code'] }</td>
-                    <td>${ tax['name'] }</td>
+                    <td>${ vals['code'] }</td>
+                    <td>${ vals['name'] }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] and multiplier or 1)) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['d']*(vals['d'] and multiplier or 1)) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] and multiplier or 1)) }</td>
