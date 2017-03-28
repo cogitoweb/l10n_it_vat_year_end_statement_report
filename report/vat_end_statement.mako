@@ -9,6 +9,7 @@
     </style>
 </head>
 <body>
+    <br />
     <h2>Periodo IVA ${ year() }</h2>
     % set total = {'credit': [0.0], 'debit': [0.0], 'extra': [0.0]}
     % set total_vat = [0.0]
@@ -64,8 +65,14 @@
                 </tr>
             </tbody>
         </table>
+
+         % if type=='debit'
+         <div style="page-break-after: always;"><br /><br /></div>
+         % endif
+
     % endfor
-    <table class="table table-bordered table-condensed" style="margin-left:50%;width:50%;">
+
+    <table class="table table-bordered table-condensed nobreak" style="margin-left:50%;width:50%;">
         <tr>
             <td style="width:50%;">Iva Debito</td>
             <td style="width:50%;"  class="align-right">${ '{:,.2f}'.format(total['debit']|sum) }</td>
