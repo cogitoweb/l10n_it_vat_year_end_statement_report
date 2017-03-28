@@ -23,43 +23,44 @@
                     <th style="width:10%;">Codice</th>
                     <th style="width:41%;">Descrizione</th>
                     <th style="width:13%;">Imponibile</th>
-                    <th style="width:13%;">Imposta</th>
+                    <th style="width:13%;">${ type=='credit' and 'Imposta' or '' }</th>
                     <th style="width:13%;">Detraibile</th>
-                    <th style="width:13%;">Indetraibile</th>
+                    <th style="width:13%;">${ type=='credit' and 'Indetraibile' or '' }</th>
                 </tr>
             </thead>
             <tbody> 
-		        % set total_base = [0.0]
+		% set total_base = [0.0]
                 % set total_vat = [0.0]
                 % set taxes = tax_codes_amounts(type)
-                % set multiplier = type=='credit' and -1 or 1
-                % for tax,vals in taxes.items():
+                % set taxes_keys = taxes[0]
+                % set vals = taxes[1]
+                % for k in taxes_keys:
                 <tr>
-                    <td>${ vals['code'] }</td>
-                    <td>${ vals['name'] }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] != 0 and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['d']) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] != 0 and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['und']*(vals['und'] &amp;lt;= 0 and multiplier or 1)) }</td>
+                    <td>${ vals[k]['code'] }</td>
+                    <td>${ vals[k]['name'] }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals[k]['base']|abs) }</td>
+                    <td class="align-right">${ type=='credit' and '{:,.2f}'.format(vals[k]['d']|abs) or '' }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals[k]['vat']|abs) }</td>
+                    <td class="align-right">${ type=='credit' and '{:,.2f}'.format(vals[k]['und']|abs) or '' }</td>
                 </tr>
-                  % if total_base.append(vals['base']*multiplier)
+                  % if total_base.append(vals[k]['base']|abs)
     		  % endif
-                  % if total_vat.append(vals['vat']*multiplier)
+                  % if total_vat.append(vals[k]['vat']|abs)
     		  % endif
-              % if total_d.append(vals['d']*multiplier)
+                  % if total_d.append(vals[k]['d']|abs)
     		  % endif
-              % if total_und.append(vals['und']*multiplier)
+                  % if total_und.append(vals[k]['und']|abs)
     		  % endif
-                  % if total[type].append(vals['vat']*multiplier)
+                  % if total[type].append(vals[k]['vat']|abs)
                   % endif
                 % endfor
                 <tr>
                     <td></td>
                     <td></td>
                     <td class="total align-right">${ '{:,.2f}'.format(total_base|sum) }</td>
-                    <td class="total align-right">${ '{:,.2f}'.format(total_d|sum) }</td>
+                    <td class="total align-right">${ type=='credit' and '{:,.2f}'.format(total_d|sum) or '' }</td>
                     <td class="total align-right">${ '{:,.2f}'.format(total_vat|sum) }</td>
-                    <td class="total align-right">${ '{:,.2f}'.format(total_und|sum) }</td>
+                    <td class="total align-right">${ type=='credit' and '{:,.2f}'.format(total_und|sum) or '' }</td>
                 </tr>
             </tbody>
         </table>

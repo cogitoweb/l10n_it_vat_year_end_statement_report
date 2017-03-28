@@ -27,6 +27,7 @@ from openerp.osv import osv
 from openerp.tools.translate import _
 #Import logger
 import logging
+import pprint
 
 _logger = logging.getLogger(__name__)
 
@@ -138,7 +139,11 @@ class Parser(report_sxw.rml_parse):
         for tax_code in code_pool.browse(
                 self.cr, self.uid, tax_code_ids, context=context):
             res = self._build_codes_dict(tax_code, res=res, context=context)
-        return res
+
+        ## sort
+        sorted_keys = sorted(res, key=lambda x: (res[x]['vat'],res[x]['code']))
+        ## _logger.info(pprint.pformat(sorted_keys))
+        return sorted_keys, res
 
     def get_year(self, context={}):
         return self.pool['account.fiscalyear'].browse(
