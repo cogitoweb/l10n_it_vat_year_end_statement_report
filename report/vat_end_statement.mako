@@ -40,7 +40,7 @@
                     <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] != 0 and multiplier or 1)) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['d']) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] != 0 and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['und']) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['und']*(vals['und'] &lt;= 0 and multiplier or 1)) }</td>
                 </tr>
                   % if total_base.append(vals['base']*multiplier)
     		  % endif
