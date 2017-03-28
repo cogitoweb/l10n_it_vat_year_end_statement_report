@@ -9,7 +9,6 @@
     </style>
 </head>
 <body>
-    <br/>
     <h2>Periodo IVA ${ year() }</h2>
     % set total = {'credit': [0.0], 'debit': [0.0], 'extra': [0.0]}
     % set total_vat = [0.0]
@@ -25,8 +24,8 @@
                     <th style="width:41%;">Descrizione</th>
                     <th style="width:13%;">Imponibile</th>
                     <th style="width:13%;">Imposta</th>
-                    <th style="width:13%;">Deducibile</th>
-                    <th style="width:13%;">Indeducibile</th>
+                    <th style="width:13%;">Detraibile</th>
+                    <th style="width:13%;">Indetraibile</th>
                 </tr>
             </thead>
             <tbody> 
@@ -38,10 +37,10 @@
                 <tr>
                     <td>${ vals['code'] }</td>
                     <td>${ vals['name'] }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['d']*(vals['d'] and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['und']*(vals['und'] and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] <> 0 and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['d']*(vals['d'] <> 0 and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] <> 0 and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['und']*(vals['und'] <> 0 and multiplier or 1)) }</td>
                 </tr>
                   % if total_base.append(vals['base']*multiplier)
     		  % endif

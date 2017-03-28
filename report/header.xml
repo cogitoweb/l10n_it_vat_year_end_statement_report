@@ -24,8 +24,8 @@
                             ${css}
                         </style>
                     </head>
-                    <body style="border:0; margin-bottom: 10px;" onload="subst()">
-                        <table style="border-top: 1px solid black; width: 100%">
+                    <body style="border:0; margin-bottom: 16px; margin-top: 16px;" onload="subst()">
+                        <table style="border-top: 1px solid #666; width: 100%">
                             <tr >
                                 <td style="text-align:right;font-size:12;" width="95%">Pagina <span class="page"/></td><td style="text-align:left;font-size:12;">  / <span class="topage"/></td>
                             </tr>
@@ -139,11 +139,9 @@
                         padding: 8px;
                         line-height: 1.42857143;
                         vertical-align: top;
-                        /*border-top: 1px solid #ddd;*/
                     }
                     .table > thead > tr > th {
                         vertical-align: bottom;
-                        /*border-bottom: 2px solid #ddd;*/
                     }
                     .table > caption + thead > tr:first-child > th,
                     .table > colgroup + thead > tr:first-child > th,
@@ -154,7 +152,6 @@
                         border-top: 0;
                     }
                     .table > tbody + tbody {
-                        /*border-top: 2px solid #ddd;*/
                     }
                     .table .table {
                         background-color: #fff;
