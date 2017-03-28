@@ -38,7 +38,7 @@
                     <td>${ vals['code'] }</td>
                     <td>${ vals['name'] }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['base']*(vals['base'] != 0 and multiplier or 1)) }</td>
-                    <td class="align-right">${ '{:,.2f}'.format(vals['d']*(vals['d'] != 0 and multiplier or 1)) }</td>
+                    <td class="align-right">${ '{:,.2f}'.format(vals['d']*(vals['d'] != 0 and 1 or multiplier)) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['vat']*(vals['vat'] != 0 and multiplier or 1)) }</td>
                     <td class="align-right">${ '{:,.2f}'.format(vals['und']*(vals['und'] != 0 and multiplier or 1)) }</td>
                 </tr>
